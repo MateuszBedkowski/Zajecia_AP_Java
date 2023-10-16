@@ -7,11 +7,6 @@
 	<display-name>kredyt_01</display-name>
 	
 	<context-param>
-		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	
-	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
@@ -24,11 +19,15 @@
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
-		<url-pattern>/faces/*</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>
 		<welcome-file>index.jsf</welcome-file>
 	</welcome-file-list>
 	
+	<mime-mapping>
+		<extension>ico</extension>
+		<mime-type>image/x-icon</mime-type>
+	
+	</mime-mapping>
 </web-app>
