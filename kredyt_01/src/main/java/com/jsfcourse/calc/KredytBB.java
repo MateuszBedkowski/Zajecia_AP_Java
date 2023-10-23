@@ -9,9 +9,9 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class KredytBB {
-	private String kwota;
-	private String okres;
-	private String oprocentowanie;
+	private Double kwota;
+	private Double okres;
+	private Double oprocentowanie;
 	private Double rata;
 
 	@Inject
@@ -19,30 +19,50 @@ public class KredytBB {
 
 	
 
-	public String getKwota() {
+	public Double getKwota() {	
 		return kwota;
 	}
 
-	public void setKwota(String kwota) {
-		this.kwota = kwota;
+	public void setKwota(Double kwota) {
+	    if (kwota != null && kwota > 5000) {
+	        this.kwota = kwota;
+	    } else {
+	        FacesMessage message = new FacesMessage("Kwota musi być większa od 5000");
+	        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        ctx.addMessage("form:idkwota", message);
+	    }
 	}
-
-	public String getOkres() {
+	
+	public Double getOkres() {	
 		return okres;
 	}
 
-	public void setOkres(String okres) {
-		this.okres = okres;
+	public void setOkres(Double okres) {
+	    if (okres != null && okres >= 6 && okres <= 60) {
+	        this.okres = okres;
+	    } else {
+	        FacesMessage message = new FacesMessage("Okres musi być z przedziału 6-60");
+	        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        ctx.addMessage("form:idokres", message);
+	    }
 	}
-
-	public String getOprocentowanie() {
+	
+	
+	public Double getOprocentowanie() {	
 		return oprocentowanie;
 	}
 
-	public void setOprocentowanie(String oprocentowanie) {
-		this.oprocentowanie = oprocentowanie;
+	public void setOprocentowanie(Double oprocentowanie) {
+	    if (oprocentowanie != null && oprocentowanie >= 10 && oprocentowanie <= 40) {
+	        this.oprocentowanie = oprocentowanie;
+	    } else {
+	        FacesMessage message = new FacesMessage("Oprocentowanie musi być z przedziału 10-40");
+	        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+	        ctx.addMessage("form:idoprocentowanie", message);
+	    }
 	}
-
+	
+	
 	public Double getRata() {
 		return rata;
 	}
@@ -57,10 +77,6 @@ public class KredytBB {
 
 	public String calc() {
 		try {
-			double kwota = Double.parseDouble(this.kwota);
-			double okres = Double.parseDouble(this.okres);
-			double oprocentowanie = Double.parseDouble(this.oprocentowanie);
-
 			rata = (kwota + (kwota * (oprocentowanie / 100))) / okres;
 			
 

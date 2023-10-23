@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -12,21 +11,42 @@
 
 		<p:panel header="Oblicz swoją ratę">
 
-			<p:messages id="msg" />
+
 
 			<h:form>
-				<h:panelGrid columns="2" cellpadding="5" styleClass="bottom-space">
+				<h:panelGrid id="grid" columns="3" cellpadding="5" styleClass="bottom-space">
+				
 					<p:outputLabel for="idkwota" value="kwota:" />
-					<p:inputText id="idkwota" value="#{kredytBB.kwota}"/>
+					<p:inputText id="idkwota" value="#{kredytBB.kwota}" required="true" requiredMessage="Brak kwoty" converterMessage="Kwota musi być w przedziale 5000-1000000" >
+						<f:validateDoubleRange minimum="5000" maximum="1000000"/>
+					</p:inputText>
+					<p:message for="idkwota" />
+
+					
 					<p:outputLabel for="idokres" value="okres:" />
-					<p:inputText id="idokres" value="#{kredytBB.okres}"/>
+					<p:inputText id="idokres" value="#{kredytBB.okres}" required="true" requiredMessage="Brak okresu" converterMessage="Okres musi być w przedziale 6-60" >
+					<f:validateDoubleRange minimum="6" maximum="60" />
+					</p:inputText>
+					<p:message for="idokres" />
+					
 					<p:outputLabel for="idoprocentowanie" value="oprocentowanie:" />
-					<p:inputText id="idoprocentowanie" value="#{kredytBB.oprocentowanie}"/>
+					<p:inputText id="idoprocentowanie" value="#{kredytBB.oprocentowanie}" required="true" requiredMessage="Brak oprocentowania" converterMessage="Oprocentowanie musi być w przedziale 10-40">
+    					<f:validateDoubleRange minimum="10" maximum="40" />
+					</p:inputText>
+					<p:message for="idoprocentowanie" />
+
+					
 					<p:commandButton value="Oblicz ratę" action="#{kredytBB.calc()}" update="msg" />
 				</h:panelGrid>
+				
+				<p:growl id="msg" showDetail="true" sticky="true"/>
+				
+				
+			</h:form>
+			<h:form>
 				<p:commandLink value="Informacje" action="#{kredytBB.info()}" />
 			</h:form>
-			
+		
 		</p:panel>
 
 	</ui:define>
