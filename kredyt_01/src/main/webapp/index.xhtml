@@ -18,7 +18,7 @@
 				
 					<p:outputLabel for="idkwota" value="kwota:" />
 					<p:inputText id="idkwota" value="#{kredytBB.kwota}" required="true" requiredMessage="Brak kwoty" converterMessage="Kwota musi być w przedziale 5000-1000000" >
-						<f:validateDoubleRange minimum="5000" maximum="1000000"/>
+					<f:validateDoubleRange minimum="5000" maximum="1000000"/>
 					</p:inputText>
 					<p:message for="idkwota" />
 
